@@ -36,6 +36,7 @@ function init() {
     lives = 1;
     position = [[2, 2]]
     key = null;
+    score = 0;
 
     generateFood();
 }
@@ -74,6 +75,11 @@ function drawFood() {
     ctx.closePath();
 }
 
+function showScore() {
+    ctx.font = "16px Arial";
+    ctx.fillText("Score: " + score, 8, 20);
+}
+
 function draw() {
     setTimeout( function() {
         
@@ -82,6 +88,7 @@ function draw() {
         drawFood();
         moveSnake();
         drawSnake();
+        showScore();
         
 
         var pos = position[position.length-1]
@@ -92,13 +99,14 @@ function draw() {
             generateFood();
         } else {
             for (var i = 0; i < position.length-1; i++) {
-                //if (pos === position[i]) alert("shucks");
+                // snake eats itself
                 if (pos[0] === position[i][0] && pos[1] === position[i][1]) {
                     alert("shucks");
                     init();
                 }
             }
             if (pos[0] < 0 || pos[0] > columns - 1 || pos[1] < 0 || pos[1] > rows - 1) {
+                // snake hits a will
                 alert("shucks");
                 init();
             }
